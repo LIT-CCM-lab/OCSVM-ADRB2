@@ -1,0 +1,210 @@
+C.3:
+  - CT
+  - CT1
+  - CT2
+  - CT2A
+  - CT3
+  - CP1
+  - CP2
+  - CP3
+  - CB
+  - CG301
+  - CG302
+  - CG311
+  - CG312
+  - CG314
+  - CG321
+  - CG322
+  - CG323
+  - CG324
+  - CG331
+  - CG334
+  - CG3AM0
+  - CG3AM1
+  - CG3AM2
+  - CG3C31
+  - CG3C41
+  - CG3C50
+  - CG3C51
+  - CG3C52
+  - CG3C53
+  - CG3C54
+  - CG3RC1
+C.2:
+  - C
+  - CE1
+  - CE2
+  - CC
+  - CD
+  - CY
+  - CG2D1
+  - CG2D2
+  - CG2D10
+  - CG2D20
+  - CG2DC1
+  - CG2DC2
+  - CG2DC3
+  - CG2N1
+  - CG2N2
+  - CG2O1
+  - CG2O2
+  - CG2O3
+  - CG2O4
+  - CG2O5
+  - CG2O6
+  - CG25C1
+  - CG25C2
+  - CG2510
+  - CG2520
+C.ar:
+  - CA
+  - CAI
+  - CPH1
+  - CPH2
+  - CPT
+  - CG2R51
+  - CG2R52
+  - CG2R53
+  - CG2R57
+  - CG2R61
+  - CG2R62
+  - CG2R63
+  - CG2R64
+  - CG2R66
+  - CG2R67
+  - CG2RC0
+  - CG2RC7
+  - CG2RC
+  - CG2R71
+  - CG2R6
+  - CG2R5
+C.1:
+  - CG1T1
+  - CG1T2
+  - CG1N1
+  - CG207
+
+N.3:
+  - N
+  - NR1
+  - NH1
+  - NG2S3
+  - NG3C51
+  - NG301
+  - NG311
+  - NG321
+  - NG331
+N.2:
+  - NR2
+  - NR3
+  - NC2
+  - NG2D1
+N.1:
+  - NG1T1
+  - NG1D1
+N.4:
+  - NH3
+  - NP
+  - NG3P0
+  - NG3P1
+  - NG3P2
+  - NG3P3
+N.ar:
+  - NY
+  - NG2R5
+N.am:
+  - NG2S0
+  - NG2S1
+  - NG2S2
+  - NH2
+O.3:
+  - OH1
+  - OS
+  - OG301
+  - OG302
+  - OG311
+  - OG312
+  - OG3C6
+  - OG3R6
+  - OE
+O.2:
+  - O
+  - OB
+  - OG2D1
+  - OG2D3
+
+O.co2:
+  - OC
+  - OG2D2
+  - OG303
+S.3:
+  - S
+  - SM
+  - SS
+  - SG311
+  - SG301
+  - SG302
+  - SG2R5
+H:
+  - H
+  - HC
+  - HA
+  - HP
+  - HB1
+  - HB2
+  - HR1
+  - HR2
+  - HR3
+  - HS
+  - HE1
+  - HE2
+  - HA1
+  - HA2
+  - HA3
+  - HGA1
+  - HGA2
+  - HGA3
+  - HGA4
+  - HGA5
+  - HGA6
+  - HGA7
+  - HGAAM0
+  - HGAAM1
+  - HGAAM2
+  - HGP1
+  - HGP2
+  - HGP3
+  - HGP4
+  - HGP5
+  - HGPAM1
+  - HGPAM2
+  - HGPAM3
+  - HGR51
+  - HGR52
+  - HGR53
+  - HGR61
+  - HGR62
+  - HGR63
+  - HGR71
+  - HB
+Cl:
+  - CLGA1
+  - CLGA3
+  - CLGR1
+Br:
+  - BRGA1
+  - BRGA2
+  - BRGA3
+  - BRGR1
+I:
+  - IGR1
+F:
+  - FGA1
+  - FGA2
+  - FGA3
+  - FGP1
+  - FGR1
+P.3:
+  - PG0
+  - PG1
+  - PG2

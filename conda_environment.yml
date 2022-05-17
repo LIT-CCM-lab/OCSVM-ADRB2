@@ -1,0 +1,18 @@
+name: ocsvm_adrb2
+channels:
+  - defaults
+  - anaconda
+  - numba
+  - conda-forge
+  - ambermd
+dependencies:
+  - python=3
+  - numpy
+  - pandas
+  - pyaml
+  - pytraj
+  - matplotlib
+  - kneed
+  - scipy
+  - grakel
+  - biopandas
