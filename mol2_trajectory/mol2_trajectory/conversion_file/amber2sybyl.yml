@@ -4,7 +4,17 @@ C.3:
   - C8
   - C3
   - CT
+  - CX
+  - C8
   - c3
+  - cx
+  - cy
+  - cz
+  - cu
+  - cv
+
+
+
 C.2:
   - CO
   - C
@@ -14,7 +24,11 @@ C.2:
   - c
   - c2
   - cc
+  - cd
   - ce
+  - cf
+
+
 C.ar:
   - CA
   - CB
@@ -35,16 +49,20 @@ C.ar:
   - CJ
   - CP
   - ca
+  - cp
 
 
 C.1:
   - c1
+  - CY
+  - CZ
+  - cg
+  - ch
  
 
 N.3:
-  - N3
+  - NT
   - n4
-  - na
   - no
   - n7
   - n8
@@ -56,14 +74,9 @@ N.3:
   - nq
 
 N.2:
-  - N2
-  - NA
   - NB
   - NC
-  - NT
   - N2
-  - N3
-  - N*
   - nb
   - nc
   - nd
@@ -73,8 +86,10 @@ N.2:
 
 N.1:
   - n1
+  - NY
 
 N.4:
+  - N3
   - nk
   - nl
   - nx
@@ -90,9 +105,14 @@ N.ar:
 N.am:
   - N
   - n
-  - nh
+  - ni
+  - nj
+  - ns
+  - nt
 
 N.pl3:
+  - NA
+  - N*
   - na
   - nm
   - nn
@@ -124,9 +144,27 @@ O.co2:
   - OV
   - OZ
   - O2
+
 S.3:
   - S
   - SH
+  - sh
+  - sp
+  - sq
+  - ss
+
+S.2:
+  - s
+  - s2
+
+S.o:
+  - s4
+  - sx
+
+S.o2:
+  - s6
+  - sy
+  - SO
 
 H:
   - H
@@ -134,25 +172,43 @@ H:
   - HO
   - HS
   - HW
+  - H1
   - H2
   - H3
+  - HA
+  - H4
+  - H5
+  - HP
+  - HW
+  - HZ
   - hc
   - ha
   - hn
   - ho
   - hs
   - hp
+  - hw
+  - hx
+  - h1
+  - h2
+  - h3
+  - h4
+  - h5
 
 Cl:
   - cl
+  - Cl
 
 Br:
   - br
+  - Br
 
 I:
   - i
+  - I
 F:
   - f
+  - F
 
 P.3:
   - P
