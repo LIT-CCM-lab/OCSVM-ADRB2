@@ -236,6 +236,7 @@ def filter_interaction(fingerprint, interactions):
 def filter_residues(fingerprint, residues):
 	'''
 	Filters the interaction type selecting only the bit associated to the selected residues.
+	residues are indicated by the one letter code for the aminoacid and their sequence number
 
 	:param fingerprint: table containing IFPs
 	:type fingerprint: pandas DataFrame
@@ -246,12 +247,12 @@ def filter_residues(fingerprint, residues):
 	'''
 	if not isinstance(residues, (list, np.ndarray)):
 		residues = [residues]
+	residues = [r.rjust(5) for r in residues]
 	if not isinstance(fingerprint, pd.DataFrame):
 		raise TypeError('The given fingerprint should be a DataFrame instance')
 	columns = list()
 	for bit in fingerprint.columns:
-		bit_temp = bit.replace(' ', '')
-		if int(bit_temp[2:-3]) in residues:
+		if bit[1:-4].ljust(4) in residues or bit[2:-4].ljust(4) in residues:
 			columns.append(bit)
 
 	return fingerprint[columns]
