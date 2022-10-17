@@ -3,10 +3,18 @@ import matplotlib.pyplot as plt
 from scipy.stats import median_abs_deviation
 
 class MAD_KNN():
-	def __init__(self, data, kernel, verbose = True):
+	'''
+	Train an OCSVM model using the MAD-KNN method.
+	The method estimates the fraction of outliers in the dataset based on the median absolute deviation (MAD) based on the KNN-average similarity.
+	This method can be used with any python module for graph kernel estimation as long as the kernel have a fit_transform method returning a square numpy array.
+	:param data: Input graphs
+	:type data: list of graphs
+	:param kernel: The kernel used to compute the graph similairty
+	:type kernel: graph kernel
+	'''
+	def __init__(self, data, kernel):
 		self.graphs = data
 		self.kernel = kernel
-		self.verbose = verbose
 
 	def find_vals(self, dist, n_end):
 		vals = np.mean(dist[:,n_end-1:-1], axis = 1)
@@ -15,7 +23,17 @@ class MAD_KNN():
 		return np.sort(vals)
 
 	def fit(self, n = 7, plots = True, find_n = False):
-
+		'''
+		Find the nu value for the given dataset.
+		The method can be called multiple times changing the parameters, without the need to recompute the similarity matrix.
+		Multiple paramters can be tested.
+		:param n: Number of nearest neighbours for the analysis
+		:type n: int
+		:param plots: show the plots of the obtained distribution
+		:type plots: bool
+		:param find_n: Defines K of KNN as the value corresponding to 3% of the data
+		:type find_n: bool
+		'''
 		if find_n:
 			n = max(10, int(0.03*len(self.graphs)))
 
@@ -39,4 +57,6 @@ class MAD_KNN():
 			ax.scatter(np.arange(len(self.vals)), self.vals, color = 'blue', label = 'Inlier')
 			ax.scatter(np.arange(len(self.vals))[mask], self.vals[mask], color = 'red', label = 'Outlier')
 			ax.legend()
+			ax.set_xlabel('Rank')
+			ax.set_ylabel('KNN-average similarity')
 			plt.show()
