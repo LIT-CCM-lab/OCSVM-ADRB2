@@ -1,14 +1,14 @@
 # OCSVM-ADRB2
 ## Description
-The repository contains the code and scripts to reproduce the results obtained in the paper ... .
+The repository contains the code and scripts to reproduce the results obtained in the paper "One class classification for the detection of β2 adrenergic receptor agonists using single-ligand dynamic interaction data".
 
 The scripts can be used to develop new models based on the same methodology.
 
-The presented method uses the description of protein-ligand interactions as interaction pseudo-atoms (IPA) to rescore poses.
+The presented method uses the description of protein-ligand interactions as interaction pseudo-atoms (IPA) to rescore poses ([J. Chem. Inf. Model. 2013, 53, 3, 623–637](https://pubs.acs.org/doi/10.1021/ci300566n)).
 ## Requirements
 1. Interaction detection requires a working installation of [IChem 5.2.9](http://bioinfo-pharma.u-strasbg.fr/labwebsite/download.html)
 2. A Linux/POSIX operating system
-3. Python 3 with the required dpendencies and additional packages installed (see Install)
+3. Python 3 with the required dependencies and additional packages installed (see Install)
 
 ## Install (Linux/POSIX)
 The installation package contains:
@@ -21,19 +21,21 @@ The installation package contains:
 $ git clone https://github.com/LIT-CCM-lab/OCSVM-ADRB2.git
 $ cd OCSVM-ADRB2/
 ```
-2. Create a python virtual environment
+2. Indicate the location of IChem
+Open the file _pyichem_/_pyichem_/_software\_path.yml_ and indicate where the desired executable version of IChem is located, an alias can also be indicated.
+3. Create a python virtual environment
 Using Conda/Anaconda:
 ```bash
 $ conda env create -n ocsvm_adrb2 -f conda_environment.yml
 $ conda activate ocsvm_adrb2
 ```
-3. Install the additional python packages
+4. Install the additional python packages
 ```bash
-(ocsvm_adrb2) $ pip install mol2_trajectory
-(ocsvm_adrb2) $ pip install pyichem
-(ocsvm_adrb2) $ pip install ocsvm_training
+(ocsvm_adrb2) $ pip install mol2_trajectory/
+(ocsvm_adrb2) $ pip install pyichem/
+(ocsvm_adrb2) $ pip install ocsvm_training/
 ```
-4. Test installation
+5. Test installation
 ```bash
 (ocsvm_adrb2) $ python -c "import mol2_trajectory"
 (ocsvm_adrb2) $ python -c "import pyichem"
@@ -66,7 +68,7 @@ The _test.sh_ script can handle multiple trajectories with the same topology fil
 * _trajectory\_conversion\_report.txt_, report containing information on the trajectories converted to _.mol2_ files and possible errors encounetered during conversion
 ### Usage
 1. Use the _trajectory\_converter.py_ script to convert the trajectory file in pairs of _.mol2_ files
-2. Use the _compute\_interactions.py_ script to compute the IPA, it is possbile to select between the one or both the definitons of hydrophobic contacts
+2. Use the _compute\_interactions.py_ script to compute the IPA, it is possbile to select between one or both the definitons of hydrophobic contacts
 3. Use the _training.py_ script to train the model, it is possbile to select between one or both of the training heuristics
 4. Use _scoring.py_ to rescore the IPA files previously obtained from the docking poses
 ### Supported file formats
@@ -88,5 +90,4 @@ Some atom types of the aforementioned force field might not have been implemente
 ## Citation
 
 ## Funding
-
-## References
+This work was supported by the Agence Nationale de Recherches (ANR) (grant number 2019 CE14 OCHRE to E.K.), Centre National de la Recherche Scientifique (CNRS), Institut du Médicament de Strasbourg (IMS), and Université de Strasbourg

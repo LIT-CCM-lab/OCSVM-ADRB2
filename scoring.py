@@ -48,7 +48,7 @@ def main(args):
 		results_dict = {'Protein structure': interactions.receptor_mol2, 'Ligand pose': interactions.ligand_mol2, 'Score': scores_tmp}
 		print('Saving results ...')
 
-		pd.DataFrame.from_dict(results_dict).to_csv(f'MD_rescoring_{i}.csv')
+		pd.DataFrame.from_dict(results_dict).to_csv(f'MD_rescoring_{i}.csv', index = False)
 
 	with open(args.report, 'w') as rep:
 		rep.writelines('\n'.join(report))

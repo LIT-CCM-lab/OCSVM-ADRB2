@@ -90,7 +90,7 @@ def main(args):
 	else:
 		chunk = args.chunk
 
-	for i, traj_i in enumerate(traj.iterchunk(chunksize=chunk)) :
+	for i, traj_i in enumerate(traj.iterchunk(chunksize=chunk, autoimage=True)) :
 		counter = 0
 		print_progress(i*chunk, traj.n_frames)
 		
@@ -98,7 +98,7 @@ def main(args):
 			memory_traj=align_traj(traj_i, args.alignment, reference, args.alignment_ref)
 			counter +=1
 			if counter > 100:
-				memory_traj=align_traj(traj_i, args.alignment, reference, args.alignment_ref, None)
+				memory_traj=align_traj(traj_i, args.alignment, reference, args.alignment_ref)
 				error_message += f'The program was not able to correctly align frames {i*chunk} to {(i+1)*chunk-1}\n'
 				break
 		
@@ -115,7 +115,7 @@ def main(args):
 	print_progress(traj.n_frames, traj.n_frames)
 
 	print('Completing conversion to mol2 files ...')
-	mol2_traj=mol2_trajectory.Trajectory(ff = args.force_field, pdb = args.pdb_conversion)
+	mol2_traj=mol2_trajectory.Trajectory(ff = args.force_field, pdb = args.pdb_conversion, c_cat = args.cations)
 	mol2_traj.load_mol2()
 	print('Fixing receptor mol2 files\n')
 	mol2_traj.fix_receptor_file()
@@ -140,20 +140,21 @@ def main(args):
 
 if __name__ == "__main__":
 	parser=argparse.ArgumentParser()
-	parser.add_argument('-top', '--topology', help='input topology file', required = True)
-	parser.add_argument('-traj', '--trajectory', nargs='+', help='input trajectory file(s)', required = True)
+	parser.add_argument('-top', '--topology', help='Input topology file', required = True)
+	parser.add_argument('-traj', '--trajectory', nargs='+', help='Input trajectory file(s)', required = True)
 	parser.add_argument('-r', '--receptor', help='Residues of the receptor', required = True)
 	parser.add_argument('-l', '--ligand', help='Residues of the ligand', required = True)
 	parser.add_argument('-ref', '--reference', help='Reference file', required = True)
 	parser.add_argument('-a', '--alignment', help='Residues to use for the alignment', required = True)
 	parser.add_argument('-ar', '--alignment_ref', default=None, help='Residues to use for the alignment of the reference structure')
-	parser.add_argument('-sf', '--skip_frames',default=None, help='Skip this many frames')
-	parser.add_argument('-p', '--pdb_conversion',default=None, help='.csv file containing the atom types')
-	parser.add_argument('-if', '--first_frame', default = 0, help = 'frame from which start the conversion to mol2 file', type = int)
-	parser.add_argument('-lf', '--last_frame', default = None, help = 'frame where the conversion to mol2 file ends', type = int)
-	parser.add_argument('-ff', '--force_field', default = None, help = 'force field in which the trajectory atom types are defined.\n Set to charmm if CHARMM is used, default option considers AMBER atom types')
+	parser.add_argument('-sf', '--skip_frames',default=None, help='Stride between the frames converted to mol2 files')
+	parser.add_argument('-p', '--pdb_conversion',default=None, help='.csv file containing the atom types when the used topology is a .pdb file')
+	parser.add_argument('-if', '--first_frame', default = 0, help = 'Frame from which start the conversion to mol2 file', type = int)
+	parser.add_argument('-lf', '--last_frame', default = None, help = 'Frame where the conversion to mol2 file ends', type = int)
+	parser.add_argument('-ff', '--force_field', default = None, help = 'Force field in which the trajectory atom types are defined.\n Set to charmm if CHARMM is used, default option considers AMBER atom types')
 	parser.add_argument('-c', '--chunk', default = 100, help = 'Number of frames to be processed at each iteration of the converter')
 	parser.add_argument('-rep', '--report', default = 'trajectory_conversion_report.txt', help = 'Name of the trajectory conversion file')
+	parser.add_argument('-cat', '--cations', default = None, nargs = '+', help = 'List of carbon atoms to convert to the C.cat atom type')
 	
 
 	parser.set_defaults(func=main)
