@@ -9,13 +9,30 @@ separators = [molecule_card, atom_card, bond_card, substructure_card, comment_ca
 
 
 class mol2_file():
-	def __init__(self,in_file, pdb_conversion = None, backbone_tag = False, ff_conversion = None, out_file = None, smiles = None):
-		self.file = in_file
+	'''
+	Class containing a mol2_file object.
+	The class describes a mol2 file in blocks and ca change the content of the box to fit the ICHem prerequisites
+
+	:param file: the input mol2 file
+	:type file: str
+	:param pdb_conversion: assign atom type based on a pdb template
+	:type pdb_conversion: dict
+	:param backbone_tag: Add the backbone indication to the new mol2 files
+	:type backbone_tag: bool
+	:param ff_conversion: conversion between the atom types of the chosen forcefield and SYBYL atom types
+	:type ff_conversion: dict
+	:param out_file: output file where the corrected mol2 structure is stored. The default object overwrites the input file
+	:type out_file: str
+	:param c_cat: indicates the atom number of carbons to be given the C.cat atom type
+	:type c_cat: list of int
+	'''
+	def __init__(self,file, pdb_conversion = None, backbone_tag = False, ff_conversion = None, out_file = None, c_cat = None):
+		self.file = file
 		self.check_pdb_conversion = pdb_conversion
 		self.backbone_tag = backbone_tag
 		self.ff_conversion = ff_conversion
 		self.pdb_conversion = pdb_conversion
-		self.smiles = None
+		self.c_cat = c_cat
 
 		if out_file is None:
 			self.out_file = in_file
@@ -24,6 +41,9 @@ class mol2_file():
 
 
 	def fix_mol2(self):
+		'''
+		Change the mol2 file to fulfill the IChem standards
+		'''
 		self.generate_blocks()
 		self.fix_atom_block()
 		self.fix_molecule_block()
@@ -35,6 +55,9 @@ class mol2_file():
 
 
 	def generate_blocks(self):
+		'''
+		Split the mol2 file between the different blocks
+		'''
 
 		with open(self.file, 'r') as output:
 			data = output.read()
@@ -55,7 +78,9 @@ class mol2_file():
 		self.blocks = blocks
 
 	def write_mol2(self):
-		
+		'''
+		Write the corrected mol2 file
+		'''
 		with open(self.out_file, 'w') as output:
 			for card, block in zip(separators, self.blocks):
 				output.writelines(card)
@@ -79,17 +104,12 @@ class mol2_file():
 		self.amide = list()
 
 		
-		if self.smiles is None:
-			for line in lines:
-				if len(line) != 0:
-					new_line, _ = self.fix_atoms_line(line)
-					new_lines.append(new_line)
-		else:
-			smiles_ref = 0
-			for line in lines:
-				if len(line) != 0:
-					new_line, smiles_ref = self.fix_atoms_line(line, smiles_ref = smiles_ref)
-					new_lines.append(new_line)
+		
+		for line in lines:
+			if len(line) != 0:
+				new_line, _ = self.fix_atoms_line(line)
+				new_lines.append(new_line)
+		
 				
 
 		self.blocks[1] = new_lines
@@ -113,7 +133,7 @@ class mol2_file():
 		self.blocks[3] = new_lines
 
 
-	def fix_atoms_line(self, line, smiles_ref = None):
+	def fix_atoms_line(self, line):
 		'''
 		Standardize mol2 atom block for use with IChem
 
@@ -154,6 +174,9 @@ class mol2_file():
 			components[5] = to_atom_type(components[1], components[7], self.pdb_conversion)
 		if self.ff_conversion is not None:
 			components[5] = to_sybyl(components[5], self.ff_conversion)
+		if self.c_cat is not None:
+			if components[1] in self.c_cat:
+				components[5] = 'C.cat'
 
 		if len(components) == 10:
 			status_bit = components[9]
@@ -165,20 +188,6 @@ class mol2_file():
 				self.amide.append(components[0])
 		else:
 			status_bit = ''
-		'''
-		if smiles_ref is not None and components[5] != 'H':
-			#pdb.set_trace()
-			if not components[5].upper().startswith(self.smiles[smiles_ref].upper()):
-				print(components[5])
-				print(self.smiles)
-				raise Exception('The SMILES order of atoms and the mol2 file order of atoms are not compatible')
-			elif self.smiles[smiles_ref] == 'c':
-				components[5] = 'C.ar'
-			elif self.smiles[smiles_ref] == 'n':
-				components[5] = 'N.ar'
-
-			smiles_ref += 1
-		'''
 
 		if components[7][:3] == 'TRP':
 			if components[1] in list(trp_atoms.keys()):
@@ -204,12 +213,7 @@ class mol2_file():
 			components[5] = 'N.ar' if components[5] == 'N.2' else components[5]
 			components[5] = 'N.pl3' if components[5] == 'N.3' else components[5]
 
-
-
 		components[7] = check_res(components[7][:3])+components[7][3:]
-
-
-
 
 		if len(components[7]) == 3:
 			components[7] = components[7]+components[6]
@@ -222,7 +226,7 @@ class mol2_file():
 		elif components[5] in sybyl_sp2:
 			self.sp2.append(components[0])
 
-		return new_line, smiles_ref
+		return new_line
 
 	def fix_bond_line(self, line):
 		'''

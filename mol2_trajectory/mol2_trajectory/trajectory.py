@@ -28,21 +28,14 @@ class Trajectory():
 	:param ff: the force field used for the trajectory
 	:type ff: string, optional
 	'''
-	def __init__(self, traj = None, receptor_mask = None, ligand_mask = None, ff = None, pdb = None, ref_smiles = None):
+	def __init__(self, traj = None, receptor_mask = None, ligand_mask = None, ff = None, pdb = None, c_cat = None):
 		'''Constructor method'''
 		self.traj = traj
 		self.receptor_mask = receptor_mask
 		self.ligand_mask = ligand_mask
 		self.ff = ff
 		self.pdb = pdb
-		if isinstance(ref_smiles, list):
-			self.ref_smiles = ref_smiles
-		elif isinstance(ref_smiles, str):
-			self.ref_smiles = [ref_smiles]
-		elif ref_smiles is None:
-			self.ref_smiles = None
-		else:
-			raise ValueError('The reference SMILES must be a string or list of strings')
+		self.c_cat = c_cat
 
 	def write_mol2(self):
 		'''Writes the trajectory to mol2 files'''
@@ -78,7 +71,7 @@ class Trajectory():
 	def fix_ligand_file(self, protein = False):
 		'''The ligand files are changed in order to conform to the standards required by IChem'''
 
-		self.__fix_file(self.ligand_mol2, protein, smiles = self.ref_smiles)
+		self.__fix_file(self.ligand_mol2, protein)
 
 
 	def __mol2_writer(self, mask, folder, name):
@@ -114,7 +107,7 @@ class Trajectory():
 
 		return get_path_files(folder)
 
-	def __fix_file(self, files, backbone, smiles = None):
+	def __fix_file(self, files, backbone):
 		'''
 		Standaridize the mol2 file to use it with IChem
 
@@ -124,17 +117,8 @@ class Trajectory():
 		ff_conversion = load_ff(self.ff)
 		pdb_conversion = load_pdb_c(self.pdb)
 
-		if smiles is None:
-			for i,file in enumerate(files):
-				print_progress(i,len(files))
-				to_fix_file = mol2_file(file, ff_conversion = ff_conversion, pdb_conversion = pdb_conversion, backbone_tag = backbone)
-				to_fix_file.fix_mol2()
-		else:
-			if len(smiles) == 1:
-				for file in files:
-					to_fix_file = mol2_file(file, ff_conversion = ff_conversion, pdb_c = pdb_conversion, backbone_tag = backbone, smiles = smiles[0])
-					to_fix_file.fix_mol2()
-			else:
-				for file, smiles_f in zip(files, smiles):
-					to_fix_file = mol2_file(file, ff_conversion = ff_conversion, pdb_c = pdb_conversion, backbone_tag = backbone, smiles = smiles_f)
-					to_fix_file.fix_mol2()
+		for i,file in enumerate(files):
+			print_progress(i,len(files))
+			to_fix_file = mol2_file(file, ff_conversion = ff_conversion, pdb_conversion = pdb_conversion, backbone_tag = backbone, c_cat = self.c_cat)
+			to_fix_file.fix_mol2()
+		
