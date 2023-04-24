@@ -1,10 +1,10 @@
 # OCSVM-ADRB2
 ## Description
-The repository contains the code and scripts to reproduce the results obtained in the paper "One class classification for the detection of β2 adrenergic receptor agonists using single-ligand dynamic interaction data".
+The repository contains the code and scripts to reproduce the results obtained in the paper "One class classification for the detection of β2 adrenergic receptor agonists using single-ligand dynamic interaction data"([J. Cheminform. 2022, 14, 74](https://jcheminf.biomedcentral.com/articles/10.1186/s13321-022-00654-z)).
 
 The scripts can be used to develop new models based on the same methodology.
 
-The presented method uses the description of protein-ligand interactions as interaction pseudo-atoms (IPA) to rescore poses ([J. Chem. Inf. Model. 2013, 53, 3, 623–637](https://pubs.acs.org/doi/10.1021/ci300566n)).
+The presented method uses protein-ligand interactions described as interaction pseudo-atoms (IPA) to rescore poses ([J. Chem. Inf. Model. 2013, 53, 3, 623–637](https://pubs.acs.org/doi/10.1021/ci300566n)).
 ## Requirements
 1. Interaction detection requires a working installation of [IChem 5.2.9](http://bioinfo-pharma.u-strasbg.fr/labwebsite/download.html)
 2. A Linux/POSIX operating system
@@ -87,7 +87,6 @@ The script has been tested with different type of inputs for topology and coordi
 
 The current implementation of the scripts accepts only topologies with atom types from the **AMBER** or **CHARMM** force fields, other force fields (including force fields using SYBYL atom types) are not supported.
 Some atom types of the aforementioned force field might not have been implemented in the current version of the script.
-## Citation
 
 ## Funding
 This work was supported by the Agence Nationale de Recherches (ANR) (grant number 2019 CE14 OCHRE to E.K.), Centre National de la Recherche Scientifique (CNRS), Institut du Médicament de Strasbourg (IMS), and Université de Strasbourg
